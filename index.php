@@ -4,6 +4,7 @@ require('app/config/db.php');
 
 session_start();
 
+
 if ($_POST) {
   $usuario = $_POST['usuario'];
   $password = $_POST['password'];
@@ -27,7 +28,7 @@ if ($_POST) {
       $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
 
       header("Location: app/dashboard.php");
-      
+
     } else {
       $_SESSION['color'] = "danger";
       $_SESSION['msg'] = "La contraseña no coincide mi loco";
