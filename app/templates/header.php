@@ -12,6 +12,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 $nombre = $_SESSION['nombre'];
+$rol = $_SESSION['tipo_usuario'];
 ?>
 
 <!DOCTYPE html>
@@ -66,6 +67,9 @@ $nombre = $_SESSION['nombre'];
       <!-- Divider -->
       <hr class="sidebar-divider">
 
+      <?php if ($rol == 1) {  ?>
+
+        
       <!-- Heading -->
       <div class="sidebar-heading">
         Interface
@@ -105,6 +109,8 @@ $nombre = $_SESSION['nombre'];
 
       <!-- Divider -->
       <hr class="sidebar-divider">
+
+      <?php } ?>
 
       <!-- Heading -->
       <div class="sidebar-heading">
@@ -170,6 +176,7 @@ $nombre = $_SESSION['nombre'];
             <i class="fa fa-bars"></i>
           </button>
 
+          <?php if($rol == 1) { ?>
           <!-- Topbar Search -->
           <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
             <div class="input-group">
@@ -181,6 +188,8 @@ $nombre = $_SESSION['nombre'];
               </div>
             </div>
           </form>
+
+          <?php } ?>
 
           <!-- Topbar Navbar -->
           <ul class="navbar-nav ml-auto">
@@ -219,6 +228,7 @@ $nombre = $_SESSION['nombre'];
               </a>
               <!-- Dropdown - User Information -->
               <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                <?php if($rol == 1) { ?>
                 <a class="dropdown-item" href="#">
                   <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                   Profile
@@ -232,6 +242,7 @@ $nombre = $_SESSION['nombre'];
                   Activity Log
                 </a>
                 <div class="dropdown-divider"></div>
+                <?php } ?>
                 <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
                   <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                   Cerrar Sesión
