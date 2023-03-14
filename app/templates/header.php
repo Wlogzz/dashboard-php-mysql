@@ -12,6 +12,7 @@ if (!isset($_SESSION['id'])) {
 }
 
 $nombre = $_SESSION['nombre'];
+$id = $_SESSION['id'];
 $rol = $_SESSION['tipo_usuario'];
 ?>
 
