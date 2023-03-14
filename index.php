@@ -2,6 +2,8 @@
 
 require('app/config/db.php');
 
+session_start();
+
 if ($_POST) {
   $usuario = $_POST['usuario'];
   $password = $_POST['password'];
@@ -9,7 +11,7 @@ if ($_POST) {
   $sql = "SELECT id, password, nombre, tipo_usuario FROM usuarios WHERE usuario = '$usuario'";
   // echo $sql;
 
-  $resultado = $conn -> query($sql);
+  $resultado = $conn->query($sql);
   $num = $resultado->num_rows;
 
   if ($num > 0) {
@@ -25,11 +27,14 @@ if ($_POST) {
       $_SESSION['tipo_usuario'] = $row['tipo_usuario'];
 
       header("Location: app/dashboard.php");
+      
     } else {
-      echo "La contraseña no coincide mi loco";
+      $_SESSION['color'] = "danger";
+      $_SESSION['msg'] = "La contraseña no coincide mi loco";
     }
   } else {
-    echo "No existe el usuario, por favor registrese";
+    $_SESSION['color'] = "warning";
+    $_SESSION['msg'] = "No existe el usuario, por favor registrese";
   }
 }
 
@@ -76,6 +81,20 @@ if ($_POST) {
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Bienvenido!</h1>
                   </div>
+
+                  <!-- Alert -->
+                  <?php if (isset($_SESSION['msg']) && isset($_SESSION['color'])) { ?>
+                    <div class="alert alert-<?= $_SESSION['color']; ?> alert-dismissible fade show" role="alert">
+                      <?php echo $_SESSION['msg']; ?>
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+                  <?php
+                    unset($_SESSION['msg']);
+                    unset($_SESSION['color']);
+                  } ?>
+
                   <form class="user" method="POST" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                     <div class="form-group">
                       <input type="text" class="form-control form-control-user" id="usuario" name="usuario" aria-describedby="emailHelp" placeholder="Usuario...">
